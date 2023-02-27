@@ -1,0 +1,100 @@
+
+<%- include('../includes/head.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+    
+<div class="container mt-5 profile">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-7">
+            <div class="profile-card p-3 py-4 profile-items">
+                
+                <div class="text-center">
+                    <img src="/pics/<%= user.profile_picture %>" width="100" class="rounded-circle">
+                </div>
+                
+                <div class="text-center mt-3">
+                    <span class="bg-secondary p-1 px-4 rounded text-white"><%= user.username %></span>
+                    <h5 class="mt-2 mb-0"><%= user.profile_name %></h5>
+                    
+                    <div class="px-4 mt-1">
+                        <p class="fonts"><%= user.profile_desc %> </p>
+                    </div>
+                    
+                    <ul class="social-list">
+                        <li><i class="fa fa-facebook"></i></li>
+                        <li><i class="fa fa-dribbble"></i></li>
+                        <li><i class="fa fa-instagram"></i></li>
+                        <li><i class="fa fa-linkedin"></i></li>
+                        <li><i class="fa fa-google"></i></li>
+                    </ul>
+                    
+                    <div class="buttons">
+                        <button class="btn btn-outline-primary px-4" onclick="openProfileForm()">
+                           Edit profile
+                        </button>
+                        <button class="btn btn-primary px-4 ms-3" onclick="openForm()">
+                            Add post 
+                        </button>
+                    </div>
+
+                    <div class="grid">
+                    <div class="add-media-form" id="myForm" style="display: none;">
+                        <form action="/profile/addPost" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" id="user_id" name="user_id" value="<%= user.id %>">
+                            <label for="media_picture">Add a picture</label>
+                            <input type="file" id="media_picture" name="media_picture">
+                            <label for="description">Post Description:</label>
+                            <input type="text" id="description" name="description">
+                            <button type="submit" class="btn btn-primary px-4 ms-3" onclick="closeForm()">Add post</button>
+                            <!-- <input type="submit" value="Add post" class="btn btn-primary px-4 ms-3" onclick="closeForm()"> -->
+                        </form>
+                    </div>
+
+                    <div class="add-media-form f2" id="editProfileForm" style="display: none;" >
+                        <form action="/profile/editProfile" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" id="user_id" name="user_id" value="<%= user.id %>">
+                            <label for="profile_picture">Profile picture</label>
+                            <input type="file" id="profile_picture" name="profile_picture" value="<%= user.profile_picture %>">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" value="<%= user.username %>">
+                            <label for="username">Profile Name:</label>
+                            <input type="text" id="profileName" name="profileName" value="<%= user.profile_name %>">
+                            <label for="profileDesc">Description:</label>
+                            <input type="text" id="profileDesc" name="profileDesc" value="<%= user.profile_desc %>">
+                            <button type="submit" class="btn btn-primary px-4 ms-3" onclick="closeProfileForm()">Save changes</button>
+                        </form>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid">
+    <% for(let post of posts) {%>
+    <div class="card product-item">
+        <div class="card__header">
+            <h1 class="product__title"> Posted by me</h1>
+        </div>
+        <div class="card__image">
+            <img src="/pics/<%= post.file_name %>" alt="carlos">
+        </div>
+        <div class="card__content">
+            <p class="product__description"><%= post.post_desc %></p>
+        </div>
+        <div class="card__actions">
+            <form action="/profile/deletePost" method="post">
+                <input type="hidden" name="userId" id="userId" value="<%= user.id %>">
+                <input type="hidden" name="postId" id="postId" value="<%= post.id %>">
+                
+                <button class="btn" type="submit">Delete</button>
+            </form>
+        </div>
+    </div>
+    <% } %>
+</div>
+
+<script src="/js/form.js"></script> 
+</body>
+</html>
