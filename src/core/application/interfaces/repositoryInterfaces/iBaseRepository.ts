@@ -3,7 +3,7 @@ import { QueryResult } from "pg";
 export interface iBaseRepository<T> {
 
     tableName: string;
-
+    //prov
     // insertData(tableName: string, datas: Record<string, any>): Promise<QueryResult>;
 
     insertData(datas: Record<string, any>): Promise<QueryResult>;
