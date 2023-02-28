@@ -20,23 +20,23 @@ export class PostService implements IPostService{
         return posts;
     }
 
-    getPostsByUserId =async(id: number): Promise<Post[]> => {
+    getPostsByUserId = async(id: number): Promise<Post[]> => {
         const postsByUserId: Post[] = await this.postRepository
         .findByField( ['ID', 'user_id', 'file_name', 'post_desc'], {'user_id': id}, '');
         return postsByUserId;
     }
 
-    deletePostById =async (id: number): Promise<void> => {
-        await this.postRepository.deleteById(id);
+    deletePostById = async (id: number): Promise<boolean> => {
+       return await this.postRepository.deleteById(id);
     }
 
-    addPost = async(user_id: number, file_name: string, post_desc: string): Promise<any> => {
+    addPost = async(user_id: number, file_name: string, post_desc: string): Promise<Boolean> => {
         const datas: Record<string, any> = {
             user_id: user_id,
             file_name: file_name,
             post_desc: post_desc
         };
-        const post: any = await this.postRepository.insertData(datas);
+        const post: Boolean = await this.postRepository.insertData(datas);
         return post;
     }
 

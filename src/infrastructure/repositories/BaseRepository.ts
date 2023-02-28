@@ -22,7 +22,7 @@ export class BaseRepository<T> implements iBaseRepository<T> {
     //     return addedData;
     // }
 
-    async insertData(datas: Record<string, any>): Promise<QueryResult> {
+    async insertData(datas: Record<string, any>): Promise<Boolean> {
         const fields = Object.keys(datas);
         const querySyntax = `
             INSERT INTO ${this.tableName}
@@ -32,7 +32,7 @@ export class BaseRepository<T> implements iBaseRepository<T> {
         
         const toAddDatas = [...Object.values(datas)];
         const addedData = await this.db.query(querySyntax, toAddDatas);
-        return addedData;
+        return addedData.rowCount === 1;
     }
 
     //READ
@@ -80,8 +80,8 @@ export class BaseRepository<T> implements iBaseRepository<T> {
     }
 
     //DELETE
-    async deleteById(id: number): Promise<void>{
-        await this.db.query(`DELETE FROM ${this.tableName} WHERE id = $1`, [id]);
+    async deleteById(id: number): Promise<boolean>{
+        return await this.db.query(`DELETE FROM ${this.tableName} WHERE id = $1`, [id]);
     };
 
 

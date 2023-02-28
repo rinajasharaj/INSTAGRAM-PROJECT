@@ -6,7 +6,7 @@ export interface iBaseRepository<T> {
     //prov
     // insertData(tableName: string, datas: Record<string, any>): Promise<QueryResult>;
 
-    insertData(datas: Record<string, any>): Promise<QueryResult>;
+    insertData(datas: Record<string, any>): Promise<Boolean>;
 
     // findById(id: number, tableName: string): Promise<T[]>;
     findById(id: number): Promise<T[]>;
@@ -21,6 +21,6 @@ export interface iBaseRepository<T> {
     updateData(datas: Record<string, any>, condition: Record<string, any>, logicOperator: string): Promise<QueryResult>;
 
     // deleteById(id: number, tableName: string): Promise<void>;
-    deleteById(id: number): Promise<void>;
+    deleteById(id: number): Promise<boolean>;
 
 }
