@@ -3,10 +3,11 @@ import Post from "../../domain/entities/posts";
 import User from "../../domain/entities/users";
 import { iBaseRepository } from "../interfaces/repositoryInterfaces/iBaseRepository";
 import { IPostService } from "../interfaces/serviceInterfaces/IPostService";
+import db from "../../../infrastructure/database/dbConn";
 
 export class PostService implements IPostService{
     
-    constructor(private postRepository: iBaseRepository<Post> = new BaseRepository('post')){};
+    constructor(private postRepository: iBaseRepository<Post> = new BaseRepository('post', db)){};
     
 
     getPost = async(id: number): Promise<{post: Post}> => {

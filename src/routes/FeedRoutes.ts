@@ -7,11 +7,12 @@ import { BaseRepository } from '../infrastructure/repositories/BaseRepository';
 import Post from '../core/domain/entities/posts';
 import User from '../core/domain/entities/users';
 import { IPostService } from '../core/application/interfaces/serviceInterfaces/IPostService';
+import db from '../infrastructure/database/dbConn';
 
 
 const router = express.Router();
-const postRepository: iBaseRepository<Post>=new BaseRepository<Post>('post');
-const userRepository: iBaseRepository<User> = new BaseRepository<User>('user_');
+const postRepository: iBaseRepository<Post>=new BaseRepository<Post>('post', db);
+const userRepository: iBaseRepository<User> = new BaseRepository<User>('user_', db);
 const postService:IPostService = new PostService(postRepository);
 const postController=new PostController(postService);
 

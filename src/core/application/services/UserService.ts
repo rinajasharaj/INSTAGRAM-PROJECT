@@ -3,10 +3,11 @@ import User from "../../domain/entities/users";
 // import { iBaseRepository } from "../../../infrastructure/repositoryInterfaces/iBaseRepository";
 import { iBaseRepository } from "../interfaces/repositoryInterfaces/iBaseRepository";
 import { IUserService } from "../interfaces/serviceInterfaces/IUserService";
+import db from "../../../infrastructure/database/dbConn";
 
 export class UserService implements IUserService{
     
-    constructor(private userRepository: iBaseRepository<User> = new BaseRepository('user_')){};
+    constructor(private userRepository: iBaseRepository<User> = new BaseRepository('user_', db)){};
 
     getUserById = async(id: number): Promise<{user: User}> => {
         const user: any =  await this.userRepository.findById(id);
