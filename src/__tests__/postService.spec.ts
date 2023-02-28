@@ -22,8 +22,8 @@ describe("PostService", () => {
         postService = new PostService(mockRepository);
     });
 
-    describe('getPost', () => {
-        it('Should return an object of type Post', async() => {
+    describe('getPost by Id', () => {
+        it('Should return an object of type Post when id is null', async() => {
             const mockData = [{post_id: 1, user_id: 1, file_name: 'lew.jpg', post_desc: 'w'}];
             mockRepository.findById.mockResolvedValue(mockData);
 
@@ -31,6 +31,14 @@ describe("PostService", () => {
             expect(result).toEqual(mockData);
             expect(mockRepository.findById).toHaveBeenCalledTimes(1);
         });
+        // it('Should return null Post when id is null', async() => {
+        //     const mockData = [{post_id: 1, user_id: 1, file_name: 'lew.jpg', post_desc: 'w'}];
+        //     mockRepository.findById.mockResolvedValue(mockData);
+
+        //     const result = await postService.getPost(1);
+        //     expect(result).toEqual(mockData);
+        //     expect(mockRepository.findById).toHaveBeenCalledTimes(1);
+        // });
     });
 
     describe('fetchAllPosts', () => {

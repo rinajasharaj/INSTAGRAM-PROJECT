@@ -22,6 +22,7 @@ const userController=new UserController(userService, postService);
 
 const upload = require('../UI/controllers/multer');
 
+// router.use()
 router.post('/deletePost', userController.deleteUserPost);
 router.post('/addPost', upload.single('media_picture'), userController.addPost);
 router.post('/editProfile', upload.single('profile_picture'), userController.editProfile);

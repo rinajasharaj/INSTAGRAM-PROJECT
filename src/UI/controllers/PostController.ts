@@ -13,7 +13,10 @@ export class PostController {
 
     fetchAllPosts = async(req: Request, res: Response, next: NextFunction) => {
         const posts = await this.postService.fetchAllPosts();
-       
+
+        var isLoggedIn = req.get('Cookie')?.split('=')[1];
+        console.log(isLoggedIn);
+        
         res.render('feed/feed', {
             posts: posts
             //usernames: usernames 
